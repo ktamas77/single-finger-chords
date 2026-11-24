@@ -29,6 +29,9 @@ Keys above the split point pass through, so the right hand plays normally.
 
 Requires **Ableton Live 12 Suite** (the device uses Max 9's `v8.codebox`).
 
+Also listed on [max4.live](https://max4.live/device/m4l_01M85F7WQTEW02SBKBPNZ9HGMX/single-finger/),
+the Max for Live device catalogue.
+
 ## Controls
 
 | Control | Default | What it does |
