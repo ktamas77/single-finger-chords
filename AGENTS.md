@@ -22,8 +22,8 @@ deletes the tracks again. Tell the user before running it against a set they are
 
 ## Rules
 
-- **Never hand-edit the `.amxd`.** Change `src/core.js` or `build.js` and rebuild. Commit `dist/`:
-  it is the deliverable people download.
+- **Never hand-edit the `.amxd`.** Change `src/core.js` or `build.js` and rebuild. `dist/` is build
+  output and is git-ignored; people download the device from GitHub releases.
 - **`src/core.js` stays a plain script.** `build.js` pastes its text into a `v8.codebox`, so no
   `import`, `require` or `export`. The guarded `module.exports` on the last line is the only Node
   hook. No Max globals in it either; everything Max-facing lives in `GLUE` in `build.js`.
@@ -104,7 +104,12 @@ effect behind the instrument, which forces a two-track routing workaround. Evide
 
 ## Publishing
 
-- The code lives in a private GitHub repo. Do not make it public or publish releases without being asked.
+- The repo is public at https://github.com/ktamas77/single-finger-chords under the MIT license.
+- **Releases are cut by CI, not by hand.** `.github/workflows/ci.yml` runs `node test.js` on every
+  push and pull request. Pushing a `v*` tag also zips the built device and creates the GitHub
+  release. The zip matters: GitHub turns spaces in asset names into dots, and Live uses the file
+  name as the device title, so a bare upload would show up in Live as "Single.Finger". Cut a
+  release only when asked.
 - max4.live lists Max for Live devices. Its submit form needs a sign-in by emailed link, a
   screenshot of the device in Live (`docs/screenshot.png`), a 120 to 4,000 character description
   and a license, and a person reviews every submission. Submit only when the owner asks.

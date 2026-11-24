@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+
+permissions:
+  contents: write # the release step attaches the built device
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - run: node --version && node test.js # tests the engine, then builds and checks dist/Single Finger.amxd
+
+      # A v* tag publishes a release. The device is zipped because GitHub replaces spaces in
+      # asset names with dots, and Live shows the file name as the device title.
+      - if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cd dist
+          zip Single-Finger.zip "Single Finger.amxd"
+          gh release create "$GITHUB_REF_NAME" Single-Finger.zip --repo "$GITHUB_REPOSITORY" --title "Single Finger $GITHUB_REF_NAME" --generate-notes

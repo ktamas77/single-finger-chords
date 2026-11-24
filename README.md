@@ -22,8 +22,10 @@ Keys above the split point pass through, so the right hand plays normally.
 
 ## Install
 
-1. Download [`dist/Single Finger.amxd`](dist/Single%20Finger.amxd).
-2. Drag it onto a MIDI track, in front of the instrument. To keep it, drop it into your User Library.
+1. Download [Single-Finger.zip](https://github.com/ktamas77/single-finger-chords/releases/latest/download/Single-Finger.zip)
+   from the [latest release](https://github.com/ktamas77/single-finger-chords/releases/latest) and unzip it.
+2. Drag `Single Finger.amxd` onto a MIDI track, in front of the instrument. To keep it, drop it
+   into your User Library.
 
 Requires **Ableton Live 12 Suite** (the device uses Max 9's `v8.codebox`).
 
@@ -54,12 +56,19 @@ Not included: Fingered and Multi Finger modes, other brands' one-finger rules, d
 
 ## Develop
 
-No dependencies beyond Node.js 24.
+No dependencies beyond Node.js.
 
 ```
 node test.js       # chord logic, then builds the device and checks it
 node build.js      # writes dist/Single Finger.amxd
 node live-test.js  # end-to-end test inside a running Live (needs AbletonOSC)
+```
+
+`dist/` is build output and is not committed. CI runs `node test.js` on every push, and pushing a
+tag publishes a release with the built device attached:
+
+```
+git tag v1.0.1 && git push origin v1.0.1
 ```
 
 | Path | What |
@@ -69,9 +78,14 @@ node live-test.js  # end-to-end test inside a running Live (needs AbletonOSC)
 | `test.js` | Self-check for the engine and the built device |
 | `live-test.js` | Plays fingerings through the device in Live and checks the recorded output |
 | `docs/single-finger.md` | How Single Finger works, with manual quotes, design decisions and test results |
+| `.github/workflows/ci.yml` | Tests on every push; builds and publishes a release on `v*` tags |
 | `AGENTS.md` | Notes for coding agents working in this repo |
 
 The device is never edited in the Max editor. Change the code and rebuild.
+
+## License
+
+[MIT](LICENSE).
 
 Yamaha, Portatone, Electone and Clavinova are trademarks of Yamaha Corporation. This project is
 independent and not affiliated with Yamaha, Ableton or Cycling '74.
