@@ -118,3 +118,7 @@ effect behind the instrument, which forces a two-track routing workaround. Evide
 - max4.live lists Max for Live devices. Its submit form needs a sign-in by emailed link, a
   screenshot of the device in Live (`docs/screenshot.png`), a 120 to 4,000 character description
   and a license, and a person reviews every submission. Submit only when the owner asks.
+- The device was submitted to max4.live on 2026-11-24 as `m4l_01M85F7WQTEW02SBKBPNZ9HGMX`
+  (version 1.0.0, author "Tamas Kalman", license "Free"). No file was uploaded there: its download
+  link points at this repo's `releases/latest/download/Single-Finger.zip`, so the listing never
+  goes stale when CI cuts a new release. Changing the listing's text sends it back to review.
