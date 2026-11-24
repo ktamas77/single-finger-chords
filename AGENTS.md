@@ -105,11 +105,16 @@ effect behind the instrument, which forces a two-track routing workaround. Evide
 ## Publishing
 
 - The repo is public at https://github.com/ktamas77/single-finger-chords under the MIT license.
-- **Releases are cut by CI, not by hand.** `.github/workflows/ci.yml` runs `node test.js` on every
-  push and pull request. Pushing a `v*` tag also zips the built device and creates the GitHub
-  release. The zip matters: GitHub turns spaces in asset names into dots, and Live uses the file
-  name as the device title, so a bare upload would show up in Live as "Single.Finger". Cut a
-  release only when asked.
+- **Releases are automatic; never cut one by hand.** `.github/workflows/ci.yml` runs
+  `node test.js` on every push and pull request. On a push to `main` it compares the fresh build
+  with the device in the latest release and, if the bytes differ, publishes the next patch version
+  (`v1.0.0`, `v1.0.1`, ...). So **merging a change to `src/core.js` or the patcher in `build.js`
+  ships it to users**; docs-only commits release nothing. This relies on the build being
+  deterministic: do not put timestamps or random ids into the patcher.
+- The release asset is a zip on purpose: GitHub turns spaces in asset names into dots, and Live
+  uses the file name as the device title, so a bare upload would show up in Live as "Single.Finger".
+- For a minor or major bump, publish that one release yourself with the same zip
+  (`gh release create v1.1.0 dist/Single-Finger.zip`); CI continues from the latest release's number.
 - max4.live lists Max for Live devices. Its submit form needs a sign-in by emailed link, a
   screenshot of the device in Live (`docs/screenshot.png`), a 120 to 4,000 character description
   and a license, and a person reviews every submission. Submit only when the owner asks.

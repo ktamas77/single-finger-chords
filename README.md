@@ -64,12 +64,9 @@ node build.js      # writes dist/Single Finger.amxd
 node live-test.js  # end-to-end test inside a running Live (needs AbletonOSC)
 ```
 
-`dist/` is build output and is not committed. CI runs `node test.js` on every push, and pushing a
-tag publishes a release with the built device attached:
-
-```
-git tag v1.0.1 && git push origin v1.0.1
-```
+`dist/` is build output and is not committed. Releases are automatic: CI runs `node test.js` on
+every push, and a push to `main` that changes the built device publishes the next patch release
+with the device attached. Commits that leave the device identical release nothing.
 
 | Path | What |
 |---|---|
@@ -78,7 +75,7 @@ git tag v1.0.1 && git push origin v1.0.1
 | `test.js` | Self-check for the engine and the built device |
 | `live-test.js` | Plays fingerings through the device in Live and checks the recorded output |
 | `docs/single-finger.md` | How Single Finger works, with manual quotes, design decisions and test results |
-| `.github/workflows/ci.yml` | Tests on every push; builds and publishes a release on `v*` tags |
+| `.github/workflows/ci.yml` | Tests on every push; auto-releases from `main` when the device changes |
 | `AGENTS.md` | Notes for coding agents working in this repo |
 
 The device is never edited in the Max editor. Change the code and rebuild.
